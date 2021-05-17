@@ -1,0 +1,76 @@
+.test {
+  border: 1px solid red;
+}
+
+body {
+  font-family: 'Proxima Nova Rg';
+  font-size: 16px;
+}
+
+.custom-test {
+  width: 100%;
+}
+
+.site-header {
+    position: fixed;
+    width: 100%;
+}
+
+.site-content {
+  padding: 9rem 0 0 0;
+}
+
+.home .site-content {
+  padding: 0;
+}
+
+.archive .site-content {
+  padding: 7rem 0 0 0;
+}
+
+section.giannis_hero h1 {
+    font-family: 'Proxima Nova Bold';
+}
+
+section.giannis_hero::before {
+  display: block;
+  content: ' ';
+  background-image: url('../images/hero_left_top.svg');
+  background-size: 275px 362px;
+  height: 297px;
+  width: 275px;
+  background-repeat: no-repeat;
+}
+
+section.giannis_hero::after {
+  display: block;
+  content: ' ';
+  background-image: url('../images/hero_right_bottom.svg');
+  background-size: 275px 362px;
+  height: 297px;
+  width: 275px;
+  background-repeat: no-repeat;
+  margin-left: auto;
+}
+
+section.giannis_services {
+  background: rgb(235,235,235);
+  background: linear-gradient(90deg, rgba(235,235,235,1) 0%, rgba(235,235,235,1) 35%, rgba(255,255,255,1) 35%, rgba(255,255,255,1) 100%);
+}
+
+section.giannis_services .services_box {
+  background: #fff;
+  padding: .5rem;
+  box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.23);
+}
+
+section.giannis_services .services_text_box {
+  display: flex;
+  align-items: center;
+}
+
+section.giannis_services_grid img.attachment-full.size-full {
+  width: 60px;
+  height: auto;
+  margin: 1rem;
+}
