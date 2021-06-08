@@ -1,69 +1,54 @@
 <?php
-/**
- * Astra Giannis Child Theme Theme functions and definitions
- *
- * @link https://developer.wordpress.org/themes/basics/theme-functions/
- *
- * @package Astra Giannis Child Theme
- * @since 1.0.0
- */
+	function my_custom_scripts() {
 
-/**
- * Define Constants
- */
-define( 'CHILD_THEME_ASTRA_GIANNIS_CHILD_THEME_VERSION', '1.0.0' );
+	if (is_shop() || is_product_category() || is_product()) {
 
-/**
- * Enqueue styles
- */
-function child_enqueue_styles() {
-
-	wp_enqueue_style( 'astra-giannis-child-theme-theme-css', get_stylesheet_directory_uri() . '/style.css', array('astra-theme-css'), CHILD_THEME_ASTRA_GIANNIS_CHILD_THEME_VERSION, 'all' );
-
-	//με αυτό φορτώνει το custom.css
-	wp_register_style( 'giannis_css', get_stylesheet_directory_uri() . '/css/custom.css');
-  wp_enqueue_style( 'giannis_css' );
-
-	//με αυτό φορτώνει το fonts.css
-	wp_register_style( 'giannis_fonts_css', get_stylesheet_directory_uri() . '/css/fonts.css');
-	wp_enqueue_style( 'giannis_fonts_css' );
+//1
+wp_register_style('bootstrap', get_stylesheet_directory_uri() . '/assets/css/bootstrap.css');
+wp_enqueue_style('bootstrap');
+//2
+wp_register_script('bootstrap_js', get_stylesheet_directory_uri() . '/assets/css/bootstrap.bundle.js', '', '', true);
+wp_enqueue_script('bootstrap_js');
 }
 
-add_action( 'wp_enqueue_scripts', 'child_enqueue_styles', 15 );
+wp_register_style('custom_css', get_stylesheet_directory_uri() . '/assets/css/custom.css');
+wp_enqueue_style('custom_css');
 
-function my_before_shop_loop() { ?>
-	<p class="test custom-test">
-		my_before_shop_loop
-	</p>
-<?php }
-add_action ('woocommerce_before_shop_loop', 'my_before_shop_loop', 5 );
+wp_register_style('fonts_css', get_stylesheet_directory_uri() . '/assets/css/fonts.css');
+wp_enqueue_style('fonts_css');
 
+}
+add_action ('wp_enqueue_scripts', 'my_custom_scripts', 10);
 
-function my_footer() { ?>
-		<div class=" test custom-test">
-			My footer
+remove_action('woocommerce_archive_description', 'woocommerce_taxonomy_archive_description', 10);
+remove_action('woocommerce_archive_description', 'woocommerce_product_archive_description', 10);
+remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20);
+
+function custom_shop_hero() { ?>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col text-center py-5">
+				<header class="woocommerce-products-header test">
+					<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
+						<h1 class="woocommerce-products-header__title page-title"><?php woocommerce_page_title(); ?></h1>
+					<?php endif; ?>
+				</header>
+				<?php woocommerce_breadcrumb(); ?>
+			</div>
 		</div>
+	</div>
 <?php }
-add_action ('woocommerce_after_shop_loop', 'my_footer', 5 );
+add_action ('woocommerce_before_main_content', 'custom_shop_hero', 5);
 
+function shop_container_open() { ?>
+	<div class="container">
+<?php	}
+add_action ('woocommerce_after_main_content', 'shop_container_open', 7);
 
-function giannis_test1() {
-		 echo "<div class='test custom-test'>";
-		 echo "Giannis Test Output";
-		 echo "</div>";
-}
-add_action( 'giannis_test', 'giannis_test1', 5 );
-
-function giannis_test2() { ?>
-		 <div class='test custom-test'>
-			 GiannisTest 2
-		 </div>
+function shop_container_end() { ?>
+	</div>
 <?php }
-add_action( 'giannis_test', 'giannis_test2', 10 );
+add_action ('woocommerce_after_main_content', 'shop_container_end', 11);
 
-function giannis_test3() {
-		 echo "<div class='test custom-test'>";
-     echo "Giannis Test Output 3";
-		 echo "</div>";
-}
-add_action( 'giannis_test', 'giannis_test3', 15 );
+//add_action ('woocommerce_before_main_content', 'woocommerce_taxonomy_archive_description', 5);
+//add_action ('woocommerce_before_main_content', 'woocommerce_product_archive_description', 6);
